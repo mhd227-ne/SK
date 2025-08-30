@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SK NIGER 🇳🇪 - Services USDT</title>
+  <style>
+    :root{
+      --orange:#ff7a00;
+      --orange-2:#ff9f1a;
+      --green:#25d366;   /* WhatsApp */
+      --green-2:#1ebd57;
+      --ink:#0d1b2a;
+      --ink-2:#1b263b;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.85);
+      --glass:rgba(13,27,42,.55);
+      --glass-brd:rgba(255,255,255,.18);
+      --glow:#58c7ff;    /* foudre bleue */
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Poppins", Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      text-align:center;
+      background: #000;
+      overflow-x:hidden;
+    }
+
+    /* Fond d'écran */
+    .bg{
+      position:fixed; inset:0; z-index:-3;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        url("https://files.catbox.moe/gqrmys.jpg") center / cover no-repeat fixed;
+      filter:saturate(1.05) contrast(1.05) brightness(.9);
+    }
+    /* Assombrir pour lisibilité */
+    .bg::after{
+      content:""; position:absolute; inset:0; z-index:-2;
+      background: radial-gradient(60% 60% at 50% 10%, rgba(0,0,0,.35), transparent 60%),
+                  radial-gradient(80% 60% at 50% 110%, rgba(0,0,0,.55), rgba(0,0,0,.85) 70%);
+    }
+
+    /* Foudre bleue animée (overlay léger) */
+    .lightning{
+      position:fixed; inset:0; z-index:-1; pointer-events:none; mix-blend-mode:screen;
+    }
+    .bolt{
+      position:absolute; width:2px; height:42vh;
+      top:-10vh; background: linear-gradient(to bottom, rgba(120,220,255,.95), rgba(120,220,255,.2), transparent 85%);
+      box-shadow:
+        0 0 16px rgba(120,220,255,.8),
+        0 0 42px rgba(120,220,255,.6);
+      filter: drop-shadow(0 0 18px rgba(120,220,255,.9));
+      opacity:0; transform: rotate(var(--rot,0deg)) translateZ(0);
+      animation: flash var(--dur,2.6s) var(--delay,0s) infinite ease-in;
+    }
+    .bolt::after{/* petite branche */
+      content:""; position:absolute; left:-1px; top:35%;
+      width:2px; height:18vh;
+      background: linear-gradient(to bottom, rgba(120,220,255,.9), rgba(120,220,255,.15), transparent 85%);
+      transform: rotate(-18deg);
+      box-shadow: inherit;
+    }
+    @keyframes flash{
+      0%, 88% {opacity:0}
+      89% {opacity:.95}
+      91% {opacity:.15}
+      93% {opacity:.8}
+      100% {opacity:0}
+    }
+
+    /* Barre drapeau Niger */
+    .flag{
+      position:sticky; top:0; z-index:5;
+      height:8px; width:100%;
+      background:
+        linear-gradient(90deg, #ff7a00 0 33.33%, #ffffff 33.33% 66.66%, #2dbb45 66.66% 100%);
+      box-shadow:0 6px 16px rgba(0,0,0,.35);
+    }
+
+    /* Contenu */
+    .container{
+      max-width:880px; margin: clamp(16px,4vw,36px) auto;
+      padding: clamp(14px,3vw,24px);
+    }
+
+    .card{
+      background: var(--glass);
+      border:1px solid var(--glass-brd);
+      border-radius:22px;
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.45),
+        0 0 0 1px rgba(88,199,255,.12) inset;
+      overflow:hidden;
+    }
+
+    .head{
+      padding:22px 18px 10px;
+      display:flex; align-items:center; gap:16px; justify-content:center; flex-wrap:wrap;
+    }
+
+    .pfp-wrap{ position:relative; width:160px; height:160px; flex:0 0 auto }
+    .pfp-ring{
+      position:absolute; inset:-8px; border-radius:50%;
+      background: conic-gradient(from 0deg, var(--glow), rgba(88,199,255,.25), var(--glow));
+      filter: blur(10px); opacity:.65; animation: spin 7s linear infinite;
+    }
+    @keyframes spin{to{transform: rotate(360deg)}}
+
+    .profile{
+      width:100%; height:100%; border-radius:50%; object-fit:cover;
+      border:4px solid var(--orange);
+      box-shadow: 0 0 25px rgba(247,127,0,.65), 0 10px 28px rgba(0,0,0,.45);
+    }
+
+    h1{
+      width:100%;
+      font-size: clamp(22px, 4vw, 32px);
+      margin:10px 0 6px;
+      color: var(--orange);
+      text-shadow: 0 0 18px rgba(255,121,0,.55);
+      letter-spacing:.2px;
+    }
+    .subtitle{ color:var(--muted); margin:0 0 12px }
+
+    ul{list-style:none; padding:0; margin: 8px auto 16px; max-width:600px}
+    ul li{ margin:7px 0; font-size: clamp(14px, 2.4vw, 17px); color:var(--muted) }
+
+    h2{
+      margin: 2px 0 6px;
+      font-size: clamp(18px, 3vw, 22px);
+      color:#2dbb45;
+      text-shadow:0 0 14px rgba(45,187,69,.35);
+    }
+
+    .tarifs{
+      display:grid; gap:8px; place-items:center;
+      margin: 0 auto 10px;
+    }
+    .tarifs p{
+      margin:0; font-weight:700; font-size: clamp(16px, 3vw, 19px);
+      background: rgba(0,0,0,.25);
+      padding:8px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.15);
+      box-shadow: 0 6px 16px rgba(0,0,0,.35) inset;
+    }
+
+    .info{
+      margin: 12px auto 18px; max-width:720px;
+      background: rgba(255,255,255,.08);
+      padding: 16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 0 15px rgba(255,255,255,.08);
+    }
+
+    /* Boutons corrigés (Niger + WhatsApp) */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding: 12px 18px; margin: 8px 10px; min-width: 210px;
+      font-weight:800; letter-spacing:.2px; font-size:16px;
+      border-radius: 999px; border:1px solid rgba(255,255,255,.22);
+      text-decoration:none; color:#fff;
+      box-shadow: 0 10px 26px rgba(0,0,0,.45);
+      transition: transform .12s ease, filter .2s ease, box-shadow .2s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99) }
+
+    .btn-whatsapp{
+      background: linear-gradient(180deg, var(--green), var(--green-2));
+      box-shadow: 0 10px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.08) inset;
+    }
+    .btn-whatsapp:hover{
+      filter: brightness(1.05); box-shadow: 0 14px 34px rgba(37,211,102,.55);
+    }
+
+    .btn-channel{
+      background: linear-gradient(180deg, var(--orange), var(--orange-2));
+      box-shadow: 0 10px 24px rgba(255,122,0,.45), 0 0 0 1px rgba(255,255,255,.08) inset;
+    }
+    .btn-channel:hover{
+      filter: brightness(1.05); box-shadow: 0 14px 34px rgba(255,122,0,.55);
+    }
+
+    .btn-ig{
+      background: linear-gradient(180deg, #ffffff, #ececec);
+      color:#111827;
+      border-color: rgba(0,0,0,.06);
+      box-shadow: 0 10px 24px rgba(255,255,255,.22), 0 0 0 1px rgba(0,0,0,.04) inset;
+    }
+    .btn-ig:hover{
+      filter: brightness(1.02); box-shadow: 0 14px 34px rgba(255,255,255,.28);
+    }
+
+    footer{
+      margin: 14px auto 26px; padding: 10px 14px;
+      width: fit-content; border-radius: 12px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.16);
+      color: var(--muted);
+      box-shadow: 0 10px 22px rgba(0,0,0,.45);
+    }
+
+    /* Responsive */
+    @media (max-width:560px){
+      .pfp-wrap{ width:130px; height:130px }
+      .btn{ min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fond -->
+  <div class="bg"></div>
+
+  <!-- Foudre bleue (positions & tempos variés) -->
+  <div class="lightning" aria-hidden="true">
+    <span class="bolt" style="left:12%; --rot:-6deg; --dur:3.2s; --delay:.4s"></span>
+    <span class="bolt" style="left:46%; --rot:3deg;  --dur:2.8s; --delay:1.6s"></span>
+    <span class="bolt" style="left:72%; --rot:-10deg; --dur:3.6s; --delay:2.5s"></span>
+    <span class="bolt" style="left:86%; --rot:5deg;  --dur:2.4s; --delay:3.4s"></span>
+  </div>
+
+  <!-- Drapeau barre -->
+  <div class="flag"></div>
+
+  <main class="container">
+    <section class="card">
+      <div class="head">
+        <div class="pfp-wrap">
+          <i class="pfp-ring" aria-hidden="true"></i>
+          <img src="https://files.catbox.moe/7ozp3x.jpg" alt="Photo de profil SK NIGER" class="profile" />
+        </div>
+        <h1>SK NIGER — Services USDT 🇳🇪</h1>
+        <p class="subtitle">✅ Dépôt & retrait USDT disponibles sur plusieurs plateformes</p>
+      </div>
+
+      <ul>
+        <li>📌 Dépôt Binance ✅</li>
+        <li>📌 Retrait Binance ✅</li>
+        <li>📌 Dépôt Pocket Option ✅</li>
+        <li>📌 Retrait Pocket Option ✅</li>
+        <li>📌 Autres wallets sur demande</li>
+      </ul>
+
+      <h2>💰 Tarifs</h2>
+      <div class="tarifs">
+        <p>➡️ Dépôt : <strong>1 USDT = 620 CFA</strong></p>
+        <p>➡️ Retrait : <strong>1 USDT = 550 CFA</strong></p>
+      </div>
+
+      <div class="info">
+        <p>Disponible chez <strong>SK NIGER 🇳🇪✅</strong></p>
+        <div>
+          <a class="btn btn-whatsapp" href="https://wa.me/22798979612" target="_blank" rel="noopener">📞 WhatsApp</a>
+          <a class="btn btn-channel" href="https://whatsapp.com/channel/0029VakCxEI05MUcLJNaMY0A" target="_blank" rel="noopener">📢 Chaîne WhatsApp</a>
+          <a class="btn btn-ig" href="https://instagram.com/affane_sani" target="_blank" rel="noopener">📷 Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ✎ Site web by<strong>kawaki227</strong> · 📱 +22781289418
+  </footer>
+
+</body>
+</html>
